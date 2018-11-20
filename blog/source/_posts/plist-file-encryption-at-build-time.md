@@ -3,7 +3,7 @@ title: plist file encryption at build time
 date: 2017-11-24 17:55:39
 tags: 
 - iOS
-- XCode
+- Xcode
 - macOS
 - Swift
 ---
@@ -46,18 +46,18 @@ import Cocoa
 
 /// 실행 명령어 Eunm
 enum BHMode {
-    case unknown
-    case encrypt
-    
-    init(raw: String) {
-        switch raw.uppercased() {
-        case "E":
-            self = .encrypt
-        default:
-            self = .unknown
-        }
-    }
-    
+​    case unknown
+​    case encrypt
+​    
+​    init(raw: String) {
+​        switch raw.uppercased() {
+​        case "E":
+​            self = .encrypt
+​        default:
+​            self = .unknown
+​        }
+​    }
+​    
     var description: String {
         switch self {
         case .encrypt:
@@ -70,14 +70,14 @@ enum BHMode {
 
 /// 명령어 객체
 class BHCommand {
-    var mode: BHMode
-    var options = [String]()
-    
-    init(_ mode: BHMode, withOptions: [String]) {
-        self.mode = mode
-        self.options = withOptions
-    }
-    
+​    var mode: BHMode
+​    var options = [String]()
+​    
+​    init(_ mode: BHMode, withOptions: [String]) {
+​        self.mode = mode
+​        self.options = withOptions
+​    }
+​    
     var description: String {
         return "Mode: \(mode.description), Options: \(options)"
     }
@@ -90,20 +90,20 @@ class BHCommand {
 ///   - filePath: 경로
 ///   - descFilePath: 대상 경로
 func encryptMode(_ resourcePath: String, _ resourceEncryptPath: String) {
-    print(">> ENCRYPT START")
-    print(">> ENCRYPT resourcePath: \(resourcePath)")
-    print(">> ENCRYPT resourceEncryptPath: \(resourceEncryptPath)")
-    
-    // NOTE: CHANGE UR KEY
-    let key = "SGIOS.GITHUB.IO"
-    
+​    print(">> ENCRYPT START")
+​    print(">> ENCRYPT resourcePath: \(resourcePath)")
+​    print(">> ENCRYPT resourceEncryptPath: \(resourceEncryptPath)")
+​    
+​    // NOTE: CHANGE UR KEY
+​    let key = "SGIOS.GITHUB.IO"
+​    
     do {
         let allowTypes = ["plist"]
         let resources = try FileManager.default.contentsOfDirectory(at: URL(fileURLWithPath: resourcePath), includingPropertiesForKeys: nil, options: [])
         let allowFilePaths = resources.filter({ (URL) -> Bool in
             return allowTypes.contains(URL.pathExtension)
         })
-
+    
         for allowFilePath in allowFilePaths {
             let path = resourcePath + allowFilePath.lastPathComponent
             let descPath = resourceEncryptPath + allowFilePath.lastPathComponent
@@ -112,7 +112,7 @@ func encryptMode(_ resourcePath: String, _ resourceEncryptPath: String) {
             try encrypted.write(to: URL(fileURLWithPath: descPath), options: Data.WritingOptions.atomicWrite)
             print(">> ENCRYPTED SUCCESS -> [\(allowFilePath.lastPathComponent)]")
         }
-
+    
     } catch let error as NSError {
         print(">> OOPS! \(error.localizedDescription)")
         exit(1)
@@ -127,25 +127,25 @@ func encryptMode(_ resourcePath: String, _ resourceEncryptPath: String) {
  1. -e              : encrypt 실행 명령어
  2. 1 Path Stirng   : plist 존재하는 경로
  3. 2 Path Stirng   : 암호화 처리후 이동할 경로
- 
+
  ex: BuildHelper -e $RESOURCES_PATH $RESOURCES_ENCRYPT_PATH
  */
 
 print(">> START BUILD HELPER")
 var commands = [BHCommand]() {
-    didSet {
-        if let command = commands.last {
-            print(">> New Command: \(command.description)")
-        }
-    }
+​    didSet {
+​        if let command = commands.last {
+​            print(">> New Command: \(command.description)")
+​        }
+​    }
 }
 let arguments: [String] = CommandLine.arguments
 
 for (index, argument) in arguments.enumerated() {
-    
-    let modeChar = argument[argument.index(argument.startIndex, offsetBy: 1)...]
-    let mode = BHMode(raw: String(modeChar))
-    
+​    
+​    let modeChar = argument[argument.index(argument.startIndex, offsetBy: 1)...]
+​    let mode = BHMode(raw: String(modeChar))
+​    
     switch mode {
     case .encrypt:
         
@@ -169,12 +169,12 @@ for (index, argument) in arguments.enumerated() {
 
 
 for command in commands {
-    switch command.mode {
-    case .encrypt:
-        encryptMode(command.options[0], command.options[1])
-    default:
-        break
-    }
+​    switch command.mode {
+​    case .encrypt:
+​        encryptMode(command.options[0], command.options[1])
+​    default:
+​        break
+​    }
 }
 
 print(">> END BUILD HELPER")
@@ -233,7 +233,7 @@ class ViewController: UIViewController {
             print(apiProtocol)
         }
     }
-
+    
     func loadPlistFile(_ fileName: String) -> [String: Any]? {
         let key = "SGIOS.GITHUB.IO"
         do {

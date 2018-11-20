@@ -12,11 +12,11 @@ tags:
 import UIKit
 
 private func swizzle(_ vc: UIViewController.Type) {
-    [ (#selector(vc.viewDidLoad), #selector(vc.sg_viewDidLoad)), ].forEach { original, swizzled in
+​    [ (#selector(vc.viewDidLoad), #selector(vc.sg_viewDidLoad)), ].forEach { original, swizzled in
 
         let originalMethod = class_getInstanceMethod(vc, original)
         let swizzledMethod = class_getInstanceMethod(vc, swizzled)
-
+    
         let didAddViewDidLoadMethod = class_addMethod(vc, original, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))
         if didAddViewDidLoadMethod {
             class_replaceMethod(vc, swizzled, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod))
@@ -28,11 +28,11 @@ private func swizzle(_ vc: UIViewController.Type) {
 
 private var hasSwizzled = false
 extension UIViewController {
-    final public class func doSwizzle() {
-        guard !hasSwizzled else { return }
-        hasSwizzled = true
-        swizzle(self)
-    }
+​    final public class func doSwizzle() {
+​        guard !hasSwizzled else { return }
+​        hasSwizzled = true
+​        swizzle(self)
+​    }
 
     internal func sg_viewDidLoad() {
         print("swizzled -> viewDidLoad:")

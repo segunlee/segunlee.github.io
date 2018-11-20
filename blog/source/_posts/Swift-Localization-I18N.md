@@ -124,7 +124,7 @@ rm tempI18N.swift
 struct I18N {
 	static let M_CONFIRM = "M_CONFIRM".localized
 }
- 
+
 </code></pre>
 
 <p>Project에 적용</p>
@@ -137,14 +137,14 @@ label.text = I18N.M_CONFIRM
 
 // UILabel Extension에서 IBInspectable을 이용하여 간단하게 사용
 extension UILabel {
-    @IBInspectable var localizedKey: String {
-        get {
-            return text!
-        }
-        set {
-            self.text = newValue.localized
-        }
-    }
+​    @IBInspectable var localizedKey: String {
+​        get {
+​            return text!
+​        }
+​        set {
+​            self.text = newValue.localized
+​        }
+​    }
 }
 
 </code></pre>

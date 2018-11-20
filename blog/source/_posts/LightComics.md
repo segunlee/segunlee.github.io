@@ -6,6 +6,7 @@ tags:
 - Xcode
 - iOS
 - Swift
+- LightComics
 ---
 
 
@@ -34,10 +35,11 @@ iPad Screenshots
 ## 다음과 같은 기능을 지원합니다.
 
 
-- 지원 압축 파일: ZIP Only
+- 지원 압축 파일: ZIP, RAR
+- 지원 압축파일의 압축해제 지원
 - File App 지원
 - File 트리 지원
-- 원격저장소 FTP, WebDav, DropBox 지원
+- 원격저장소 [FTP, WebDav, DropBox] 지원
 - 블루투스 키보드를 통한 페이지 이동 지원 (ESC: 닫기, 좌측: 좌측 페이지 이동, 우측: 우측 페이지 이동)
 - 읽기 목록 iCloud 동기화
 - 뷰어에 맞는 간단한 설정 지원
@@ -47,7 +49,7 @@ iPad Screenshots
 
 ## Dev Summary
 
-- Swift 4.0
+- Swift 4.2
 
 
 
