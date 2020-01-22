@@ -13,27 +13,91 @@ tags:
 
 
 
-# LightComics - 만화책, 텍스트 뷰어
+# LightComics
 
-##### 기본에 충실한 만화책, 택스트 뷰어 애플리케이션입니다.
+아이폰과 아이패드의 필수 뷰어 LightComics 애플리케이션입니다
+
+다음과 같은 기능을 지원합니다!
+
+◆ 이미지 뷰어
+	• 지원 압축 파일: ZIP, RAR, CBZ을 지원하며 폴더도 이용 가능합니다.
+		√ 다중 압축파일은 지원하지 않습니다. (압축파일 안에 압축파일)
+	• 넓은 이미지 자르기, 자르고 역순 기능을 지원합니다.
+	• 이미지 필터 [대비], [반전] 지원합니다.
+	• 이미지 비율 맞춤(일반), 비율 채우기(세로가 긴 이미지) 지원합니다.
+	• 대용량 ZIP파일의 경우 빠른 인덱싱 기능이 제공합니다.
 
 
+◆ 텍스트 뷰어
+	• 지원 파일: TXT
+		√ 텍스트 뷰어로 표현될 수 있는 확장자도 지원됩니다. (ex. .log, .sh, .md 등등)
+	• 텍스트 내용 검색 및 바로가기 기능을 지원합니다.
+	• TTS (Text To Speach)을 지원합니다. 
+		√ [실험실]에서 기능을 활성화 하실 수 있습니다.
+	• 3개의 기본 폰트를 제공하며, 글꼴 사이즈, 행간을 조정할 수 있습니다.
+		√ 설치된 글꼴 사용 가능합니다. (iOS 13 이상)
+	• 글꼴의 배경색, 글자색을 변경 할 수 있습니다.
+	• 대용량 TXT파일의 빠른 인덱싱을 제공합니다.
 
 
-## 다음과 같은 기능을 지원합니다.
-- iPhone와 iPad를 지원합니다.
-- iOS 10 이상부터 사용할 수 있습니다.
-- 이미지 뷰어 | 지원 압축 파일: ZIP, RAR
-- 이미지 뷰어 | 지원 압축파일의 압축해제 지원
-- 텍스트 뷰어 | 지원 파일: TXT
-- 뷰어 | 자동 슬라이드 지원
-- File App 지원
-- File 트리 지원
-- 원격저장소 [FTP, WebDav, DropBox, OneDrive] 지원
-- 블루투스 키보드를 통한 페이지 이동 지원 (ESC: 닫기, 좌측: 좌측 페이지 이동, 우측: 우측 페이지 이동)
-- 읽기 목록 iCloud 동기화
-- 뷰어에 맞는 간단한 설정 지원
-- 어두운 테마 지원
+◆ PDF 뷰어 (iOS 11 이상)
+	• 지원 텍스트 파일: PDF
+	• PDF 내용 검색 및 바로가기 기능을 지원합니다.
+
+
+◆ EPUB Pain Text 뷰어
+	√ EPUB에서 텍스트만 추출하여 뷰어에 표기되는 실험적 기능입니다. [실험실]에서 기능을 활성화 하실 수 있습니다.
+	• 지원 파일: EPUB (EPUB2, EPUB3 타입)
+	• 텍스트 뷰어와 같은 기능들을 제공합니다.
+
+
+◆ 뷰어 공통 기능
+	• 배경색 흰색, 검은색 변경 지원
+	• 북마크 지원
+	• 빠른 페이지 이동 지원
+	• 자동 슬라이드 지원
+	• 스크롤, 페이지 말림 전환 효과 지원
+	• 페이지 말림 전환 기능 사용 시 두페이지 나눠보기 기능 지원
+	• 오른쪽, 왼쪽, 아래쪽 페이지 방향 지원
+
+
+◆ 도큐먼트
+	• 파일 트리 형태로 도큐먼트를 지원합니다.
+	• 애플의 [파일] 애플리케이션과 연동됩니다.
+	• 압축파일의 압축해제를 지원합니다.
+	• 새폴더, 파일의 이름변경, 이동, 삭제, 공유를 지원합니다.
+	• Wi-Fi(HTTP Server)를 통한 파일 업로드, 다운로드 기능을 지원합니다.
+	• 외부 문서 및 저장소의 파일을 직접 읽을 수 있습니다. (iOS 13 이상)
+		√ [실험실]에서 기능을 활성화 하실 수 있습니다.
+
+
+◆ 원격 저장소
+	• FTP, WebDAV, Dropbox, Onedrive를 지원합니다.
+		√ 백그라운드 다운로드는 지원하지 않습니다.
+	• 원격 저장소의 파일을 삭제할 수 있습니다.
+
+
+◆ 공통 기능
+	• 애플의 File 애플리케이션과 연동됩니다.
+	• 다크 테마를 지원합니다.
+	• 패스코드 또는 생체인식 잠금 기능을 지원합니다.
+	• iCloud 동기화 기능을 지원합니다. (읽은책의 데이터만 동기화, 파일은 동기화하지 않습니다.)
+	• 그외 다양한 기본 옵션 지원
+
+
+◆ 실험실 기능
+	• EPUB(epub2, epub3)파일의 텍스트만 추출하여 뷰어 표현
+	• 볼륨 Up, Down 물리버튼을 이용한 페이지 이동
+	• 블루투스 키보드를 통한 페이지 이동
+	• TTS (Text to speech) 지원
+	• 상태바 항상 표시 기능
+	• 외부 문서 및 저장소 접근
+	• 숨김파일 숨기기
+
+◆ 문의사항은 앱의 [설정] - [문의하기] 또는 segunleedev@gmail.com 로 직접 보내주세요.
+◆ [실험실] 기능은 오류가 발생할 수 있습니다.
+◆ 실행 시 바로 앱이 종료 된다면 iOS [설정]앱 -> [LightComics] -> 초기화 스위치를 키고 재실행
+	√ 위의 내용은 저장된 읽기목록이 삭제됩니다.
 
 
 
@@ -50,32 +114,6 @@ tags:
 - Fastlane
 - Cocoapods & Carthage
 
-
-
-## Screenshots
-
-#### iPhone
-
-<div>
-<img src="/2018/10/01/LightComics/iPhone XS Max-2-Bookshelf_framed.png" width="50%" alt="" title=""/> 
-<img src="/2018/10/01/LightComics/iPhone XS Max-0-Reader_framed.png" width="50%" alt="" title="" /> 
-<img src="/2018/10/01/LightComics/iPhone XS Max-1-StringR_framed.png" width="50%" alt="" title="" /> 
-<img src="/2018/10/01/LightComics/iPhone XS Max-3-Documents_framed.png" width="50%" alt="" title="" /> 
-<img src="/2018/10/01/LightComics/iPhone XS Max-4-RemoteStorage_framed.png" width="50%" alt="" title="" /> 
-<img src="/2018/10/01/LightComics/iPhone XS Max-5-Settings_framed.png" width="50%" alt="" title="" />
-</div>
-
-
-#### iPad
-
-<div>
-<img src="iPad Pro (12.9-inch) (3rd generation)-2-Bookshelf_framed.png" width="50%" alt="" title="" /> 
-<img src="iPad Pro (12.9-inch) (3rd generation)-5-Settings_framed.png" width="50%" alt="" title="" /> 
-<img src="iPad Pro (12.9-inch) (3rd generation)-0-Reader_framed.png" width="50%" alt="" title="" /> 
-<img src="iPad Pro (12.9-inch) (3rd generation)-1-StringR_framed.png" width="50%" alt="" title="" /> 
-<img src="iPad Pro (12.9-inch) (3rd generation)-3-Documents_framed.png" width="50%" alt="" title="" /> 
-<img src="iPad Pro (12.9-inch) (3rd generation)-4-RemoteStorage_framed.png" width="50%" alt="" title="" />
-</div>
 
 
 ## 문의하기
