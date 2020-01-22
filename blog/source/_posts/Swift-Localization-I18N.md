@@ -43,11 +43,8 @@ M_CONFIRM="확인";
 </code></pre>
 
 <p>포맷에 맞게 입력되지 않으면 Build 시 다음과 같은 오류가 발생합니다.</p>
-
 <pre><code>read failed: The data couldn’t be read because it isn’t in the correct format.</code></pre>
-
 <p>정확한 오류를 확인하려면 Terminal을 통해 해당하는 Localizable.Strings 경로로 이동하여 다음과 같이 입력하여 확인합니다.</p>
-
 <pre><code>
 $ cd .../Base.lproj
 $ plutil -lint Localizable.strings 
@@ -128,7 +125,6 @@ struct I18N {
 </code></pre>
 
 <p>Project에 적용</p>
-
 <pre><code>
 // 직접 사용
 let label = UILabel()
@@ -148,3 +144,63 @@ extension UILabel {
 }
 
 </code></pre>
+
+
+
+
+
+### Python 버전 - 2020.01.22
+
+```
+import re
+import shutil
+
+
+LocalizableFilePath = "./SGComicViewer/Resources/Strings/ko.lproj/Localizable.strings"
+tempFilePath = "./tempI18N.swift"
+I18NSwiftFilePath = "./SGComicViewer/Resources/I18N.swift"
+
+class LocalizeInfo:
+    def __init__(self, _key, _value, _desc):
+        self._key = _key
+        self._value = _value
+        self._desc = _desc
+
+
+localizableFile = open(LocalizableFilePath, "r")
+localizableStrings = localizableFile.read()
+localizableStrings = localizableStrings.replace(";", "")
+localizableStringsLines = localizableStrings.splitlines()
+
+convertedLocalizables = []
+
+for localizableString in localizableStringsLines:
+    if localizableString == '':
+        continue
+    if localizableString.startswith("#"):
+        continue
+
+    _key = localizableString.split("=")[0].strip().replace('"', "")
+    _value = localizableString.split("=")[1].strip().replace('"', "")
+    _desc = "/// " + _value
+
+    if _key == '':
+        continue
+
+    info = LocalizeInfo(_key, _value, _desc)
+    convertedLocalizables.append(info)
+
+
+temp = open(tempFilePath, "w")
+temp.write("struct I18N {\n")
+for convertedLocalizableInfo in convertedLocalizables:
+    temp.writelines(["\t", convertedLocalizableInfo._desc, "\n"])
+    line = f'\tstatic let {convertedLocalizableInfo._key} = "{convertedLocalizableInfo._key}".localized'
+    temp.writelines([line, "\n\n"])
+temp.write("}\n")
+
+temp.close()
+localizableFile.close()
+shutil.move(tempFilePath, I18NSwiftFilePath)
+```
+
