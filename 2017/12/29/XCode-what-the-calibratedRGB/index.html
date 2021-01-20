@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xcode, what the calibratedRGB | LightComics</title>
+  <meta name="author" content="SEGUN LEE">
+  
+  <meta name="description" content="해당글을 참고하여 작성하였습니다.
+iOS 삽질 : 인터페이스 빌더에서 설정한 색상이 제대로 표시 안됨
+
+
+### Why do colors look different?
+
+Just follow this
+
+
+1.Run Script
+Add new Run Script
+
+grep">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Xcode, what the calibratedRGB"/>
+  <meta property="og:site_name" content="LightComics"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">LightComics</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-XCode-what-the-calibratedRGB" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2017-12-29T06:23:18.000Z"><a href="/2017/12/29/XCode-what-the-calibratedRGB/">2017-12-29</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">Xcode, what the calibratedRGB</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>해당글을 참고하여 작성하였습니다.</p>
+<p><a target="_blank" rel="noopener" href="https://code.iamseapy.com/archives/58">iOS 삽질 : 인터페이스 빌더에서 설정한 색상이 제대로 표시 안됨</a></p>
+</blockquote>
+<br />
+### Why do colors look different?
+<p>
+Just follow this
+</p>
+<br />
+<h3 id="1-Run-Script">1.Run Script</h3>
+<p>Add new Run Script</p>
+<pre><code>
+grep -rl 'colorSpace="calibratedRGB"' ./* | xargs sed -i '' 's/colorSpace="calibratedRGB"/colorSpace="custom" customColorSpace="sRGB"/g'
+
+</code></pre>
+<br />
+<h3 id="2-Build">2. Build</h3>
+<p>Done</p>
+<br />
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Xcode/">Xcode</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="https://lightcomics.kr/2017/12/29/XCode-what-the-calibratedRGB/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="lightcomics.kr">
+  </form>
+</div>
+
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/AppStore/">AppStore</a><small>1</small></li>
+  
+    <li><a href="/tags/Frida/">Frida</a><small>1</small></li>
+  
+    <li><a href="/tags/HEXO/">HEXO</a><small>1</small></li>
+  
+    <li><a href="/tags/LightComics/">LightComics</a><small>4</small></li>
+  
+    <li><a href="/tags/MemoryDump/">MemoryDump</a><small>1</small></li>
+  
+    <li><a href="/tags/Swift/">Swift</a><small>4</small></li>
+  
+    <li><a href="/tags/Xcode/">Xcode</a><small>7</small></li>
+  
+    <li><a href="/tags/iOS/">iOS</a><small>5</small></li>
+  
+    <li><a href="/tags/macOS/">macOS</a><small>1</small></li>
+  
+    <li><a href="/tags/server/">server</a><small>1</small></li>
+  
+    <li><a href="/tags/ubuntu/">ubuntu</a><small>1</small></li>
+  
+    <li><a href="/tags/vsftp/">vsftp</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2021 SEGUN LEE
+  
+</div>
+<div class="alignleft">
+&nbsp;&nbsp;
+<a href="https://lightcomics.kr/2021/01/19/LightComics-Privacy-Policy/">Privacy Policy</a>
+&nbsp;&nbsp;
+<a href="https://lightcomics.kr/2021/01/19/LightComics-Terms-Conditions/">Terms Conditions</a>
+</div>
+<div class="clearfix"></div>
+</footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<script src="/js/gallery.js"></script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script>
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
