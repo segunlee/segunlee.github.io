@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
+  <meta name="google-site-verification" content="3YzKuXYzMgiL3f8oBpF692q5Cdj9ZBQOv_VchFpmq-o" />
   
   <title>Page 8 | LightComics</title>
   <meta name="author" content="SEGUN LEE">
@@ -45,62 +46,49 @@
 </header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
-  <article id="post-swift4-swizzle" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <article id="post-LightComics-Insights" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
   <div class="post-content">
     <header>
       
         <div class="icon"></div>
-        <time class="dt-published" datetime="2017-12-29T06:36:06.000Z"><a href="/2017/12/29/swift4-swizzle/">2017-12-29</a></time>
+        <time class="dt-published" datetime="2019-04-30T05:59:43.000Z"><a href="/2019/04/30/LightComics-Insights/">2019-04-30</a></time>
       
       
   
-    <h1 class="title"><a href="/2017/12/29/swift4-swizzle/">swift4 swizzle</a></h1>
+    <h1 class="title"><a href="/2019/04/30/LightComics-Insights/">LightComics Insights</a></h1>
   
 
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
-        <h3 id="Swift4-swizzle">Swift4 swizzle</h3>
-<p>UIViewController-Swizzle.swift</p>
-<pre><code>
-import UIKit
-<p>private func swizzle(_ vc: UIViewController.Type) &#123;<br>
-​    [ (#selector(vc.viewDidLoad), #selector(vc.sg_viewDidLoad)), ].forEach &#123; original, swizzled in</p>
-<pre><code>    let originalMethod = class_getInstanceMethod(vc, original)
-    let swizzledMethod = class_getInstanceMethod(vc, swizzled)
+        <h1>목적성</h1>
+<ol>
+<li>
+<p>iOS SDK의 새로운 기능, 새로운 기술등을 공부하기 위해</p>
+</li>
+<li>
+<p>ItunesConnect의 변경점을 항상 확인하기 위해</p>
+</li>
+<li>
+<p>내가 필요해서</p>
+</li>
+</ol>
+<h1>사용자 및 수익</h1>
+<h3 id="Analytics-Firebase">Analytics - Firebase</h3>
+<p><img src="/2019/04/30/LightComics-Insights/overview.png" alt="sales"></p>
+<p>DAU는 약 150으로 나오며 수익은 4,808원입니다. (지난 28일 기준)</p>
+<p>수익을 목적으로 만든 앱이 아니기 때문에 광고를 제거할려고 했으나 앱 내 구입, 구매 복원등의 로직을 공부를 위해 넣어 수익이 나오고 있는 상태입니다.</p>
+<h3 id="판매량-ItunesConnect">판매량 - ItunesConnect</h3>
+<p><img src="/2019/04/30/LightComics-Insights/sales.png" alt="sales"></p>
+<h3 id="매출-ItunesConnect">매출 - ItunesConnect</h3>
+<p><img src="/2019/04/30/LightComics-Insights/sales2.png" alt="sales2"></p>
+<h3 id="수익금-ItunesConnect">수익금 - ItunesConnect</h3>
+<p><img src="/2019/04/30/LightComics-Insights/sales3.png" alt="sales3"></p>
+<p><img src="/2019/04/30/LightComics-Insights/sales4.png" alt="sales4"></p>
+<h2 id="마치며">마치며</h2>
+<p>블로그라고 하고 딱히 쓸만한게 없어 작성한 글.</p>
 
-    let didAddViewDidLoadMethod = class_addMethod(vc, original, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))
-    if didAddViewDidLoadMethod &#123;
-        class_replaceMethod(vc, swizzled, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod))
-    &#125; else &#123;
-        method_exchangeImplementations(originalMethod, swizzledMethod)
-    &#125;
-&#125;
-</code></pre>
-<p>}</p>
-<p>private var hasSwizzled = false<br>
-extension UIViewController {<br>
-​    final public class func doSwizzle() {<br>
-​        guard !hasSwizzled else { return }<br>
-​        hasSwizzled = true<br>
-​        swizzle(self)<br>
-​    }</p>
-<pre><code>internal func sg_viewDidLoad() &#123;
-    print(&quot;swizzled -&gt; viewDidLoad:&quot;)
-    self.sg_viewDidLoad()
-&#125;
-</code></pre>
-<p>}</p>
-<p></code></pre></p>
-<br />
-<p>AppDelegate.swift</p>
-<pre><code>
-func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool &#123;
-	// doSwizzle
-	UIViewController.doSwizzle()
-&#125;
-</code></pre>
       
     </div>
     <footer>

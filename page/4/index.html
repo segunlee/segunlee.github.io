@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
+  <meta name="google-site-verification" content="3YzKuXYzMgiL3f8oBpF692q5Cdj9ZBQOv_VchFpmq-o" />
   
   <title>Page 4 | LightComics</title>
   <meta name="author" content="SEGUN LEE">
@@ -45,109 +46,44 @@
 </header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
-  <article id="post-Frida-Memory-Dump" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <article id="post-LightComics-Terms-Conditions" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
   <div class="post-content">
     <header>
       
         <div class="icon"></div>
-        <time class="dt-published" datetime="2020-01-22T07:07:45.000Z"><a href="/2020/01/22/Frida-Memory-Dump/">2020-01-22</a></time>
+        <time class="dt-published" datetime="2021-01-19T11:56:50.000Z"><a href="/2021/01/19/LightComics-Terms-Conditions/">2021-01-19</a></time>
       
       
   
-    <h1 class="title"><a href="/2020/01/22/Frida-Memory-Dump/">Frida-Memory-Dump</a></h1>
+    <h1 class="title"><a href="/2021/01/19/LightComics-Terms-Conditions/">LightComics Terms &amp; Conditions</a></h1>
   
 
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
-        <h1>준비</h1>
-<ol>
-<li>
-<p>탈옥된 아이폰</p>
-<ol>
-<li>Cydia에서 NewTerm 설치</li>
-<li>Cydia에서 Frida 설치 (Cydia/APT URL: <a target="_blank" rel="noopener" href="http://build.frida.re/">http://build.frida.re/</a>)   *설치 후 자동 실행됨</li>
-</ol>
-</li>
-<li>
-<p>Mac</p>
-<ol>
-<li>
-<p>python3 설치</p>
-<ol>
-<li>
-<pre><code>$ python3 –version
-# python3 설치 : https://www.python.org/downloads/mac-osx/ 에 접속하여 최신 버전 다운로드 및 설치
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2. pip 설치</span><br><span class="line"></span><br><span class="line">   1. &#96;&#96;&#96;</span><br><span class="line">      $ curl https:&#x2F;&#x2F;bootstrap.pypa.io&#x2F;get-pip.py -o get-pip.py</span><br><span class="line">      $ sudo python get-pip.py</span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-</ol>
-</li>
-<li>
-<p>Frida 설치</p>
-<ol>
-<li>
-<pre><code>$ pip install frida
-$ install frida-tools
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># do Dump</span><br><span class="line"></span><br><span class="line">### 디바이스 목록</span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<p>$ frida-ls-devices</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<p>Id                                        Type    Name</p>
-<hr>
-<p>local                                     local   Local System<br>
-afce666ff913e4e8f2b23c909cb44112ee6d8696  usb     iPhone<br>
-tcp                                       remote  Local TCP</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 프로세스 목록 -  frida-server 동작여부 확인</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>$ frida-ps -U | grep ‘frida’</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<p>77  frida-server</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 프로세스 목록 -  대상 애플리케이션 동작여부 확인</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>$ frida-ps -U | grep ‘LightComics’</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<p>1031  LightComics</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 메모리 덤프 처리</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>$ cd ~/Documents/FridaDump/<br>
-$ git clone <a target="_blank" rel="noopener" href="https://github.com/Nightbringer21/fridump.git">https://github.com/Nightbringer21/fridump.git</a><br>
-$ cd fridump<br>
-$ python <a target="_blank" rel="noopener" href="http://fridump.py">fridump.py</a> -U -r --max-size 1048576000 LightComics</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<p>optional arguments:<br>
--h, --help         show this help message and exit<br>
--o dir, --out dir  provide full output directory path. (def: ‘dump’)<br>
--U, --usb          device connected over usb<br>
--v, --verbose      verbose<br>
--r, --read-only    dump read-only parts of memory. More data, more errors<br>
--s, --strings      run strings on all dump files. Saved in output dir.<br>
-–max-size bytes   maximum size of dump file in bytes (def: 20971520</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### *.data 파일 검사</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>cd ~/Documents/FridaDump/fridump/dump/<br>
-grep -q “SEARCH_KEYWORD” *.data; [ $? -eq 0 ] &amp;&amp; echo “OOPS” || echo “GOOD, NOT FOUND”<br>
-grep -l “SEARCH_KEYWORD” *.data; [ $? -eq 0 ] &amp;&amp; echo “OOPS” || echo “GOOD, NOT FOUND”</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># iOS Frida 수동 설치</span><br><span class="line"></span><br><span class="line">Cydia Repo가 정상적이지 않는 경우도 있어 수동 설치 방법을 기입한다.</span><br><span class="line"></span><br><span class="line">1. iPhone 또는 Mac에서 SSH 접속</span><br><span class="line"></span><br><span class="line">2. Firda 다운로드</span><br><span class="line"></span><br><span class="line">   1. &#96;&#96;&#96;</span><br><span class="line">      $ cd &#x2F;var&#x2F;mobile&#x2F;</span><br><span class="line">      $ mkdir frida</span><br><span class="line">      $ cd frida</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>
-<pre><code>$ wget https://github.com/frida/frida/releases/download/12.8.7/frida-core-devkit-12.8.7-ios-arm64.tar.xz
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3. &#96;&#96;&#96;</span><br><span class="line">   $ unxz frida-core-devkit-12.8.7-ios-arm64.tar.xz</span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-<li>
-<pre><code>$ cp frida-core-devkit-12.8.7-ios-arm64.tar frida-server
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">5. &#96;&#96;&#96;</span><br><span class="line">   $ chmod 775 frida-server </span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-<li>
-<pre><code>$ ./frida-server &amp;
-</code></pre>
-</li>
-</ol>
+        <p><strong>Terms &amp; Conditions</strong></p>
+<p>By downloading or using the app, these terms will automatically apply to you – you should make sure therefore that you read them carefully before using the app. You’re not allowed to copy, or modify the app, any part of the app, or our trademarks in any way. You’re not allowed to attempt to extract the source code of the app, and you also shouldn’t try to translate the app into other languages, or make derivative versions. The app itself, and all the trade marks, copyright, database rights and other intellectual property rights related to it, still belong to LEESEGUN.</p>
+<p>LEESEGUN is committed to ensuring that the app is as useful and efficient as possible. For that reason, we reserve the right to make changes to the app or to charge for its services, at any time and for any reason. We will never charge you for the app or its services without making it very clear to you exactly what you’re paying for.</p>
+<p>The LightComics app stores and processes personal data that you have provided to us, in order to provide my Service. It’s your responsibility to keep your phone and access to the app secure. We therefore recommend that you do not jailbreak or root your phone, which is the process of removing software restrictions and limitations imposed by the official operating system of your device. It could make your phone vulnerable to malware/viruses/malicious programs, compromise your phone’s security features and it could mean that the LightComics app won’t work properly or at all.</p>
+<p>The app does use third party services that declare their own Terms and Conditions.</p>
+<p>Link to Terms and Conditions of third party service providers used by the app</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developers.google.com/admob/terms">AdMob</a></li>
+<li><a target="_blank" rel="noopener" href="https://firebase.google.com/terms/analytics">Google Analytics for Firebase</a></li>
+<li><a target="_blank" rel="noopener" href="https://firebase.google.com/terms/crashlytics">Firebase Crashlytics</a></li>
+</ul>
+<p>You should be aware that there are certain things that LEESEGUN will not take responsibility for. Certain functions of the app will require the app to have an active internet connection. The connection can be Wi-Fi, or provided by your mobile network provider, but LEESEGUN cannot take responsibility for the app not working at full functionality if you don’t have access to Wi-Fi, and you don’t have any of your data allowance left.</p>
+<p>If you’re using the app outside of an area with Wi-Fi, you should remember that your terms of the agreement with your mobile network provider will still apply. As a result, you may be charged by your mobile provider for the cost of data for the duration of the connection while accessing the app, or other third party charges. In using the app, you’re accepting responsibility for any such charges, including roaming data charges if you use the app outside of your home territory (i.e. region or country) without turning off data roaming. If you are not the bill payer for the device on which you’re using the app, please be aware that we assume that you have received permission from the bill payer for using the app.</p>
+<p>Along the same lines, LEESEGUN cannot always take responsibility for the way you use the app i.e. You need to make sure that your device stays charged – if it runs out of battery and you can’t turn it on to avail the Service, LEESEGUN cannot accept responsibility.</p>
+<p>With respect to LEESEGUN’s responsibility for your use of the app, when you’re using the app, it’s important to bear in mind that although we endeavour to ensure that it is updated and correct at all times, we do rely on third parties to provide information to us so that we can make it available to you. LEESEGUN accepts no liability for any loss, direct or indirect, you experience as a result of relying wholly on this functionality of the app.</p>
+<p>At some point, we may wish to update the app. The app is currently available on iOS – the requirements for system(and for any additional systems we decide to extend the availability of the app to) may change, and you’ll need to download the updates if you want to keep using the app. LEESEGUN does not promise that it will always update the app so that it is relevant to you and/or works with the iOS version that you have installed on your device. However, you promise to always accept updates to the application when offered to you, We may also wish to stop providing the app, and may terminate use of it at any time without giving notice of termination to you. Unless we tell you otherwise, upon any termination, (a) the rights and licenses granted to you in these terms will end; (b) you must stop using the app, and (if needed) delete it from your device.</p>
+<p><strong>Changes to This Terms and Conditions</strong></p>
+<p>I may update our Terms and Conditions from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Terms and Conditions on this page.</p>
+<p>These terms and conditions are effective as of 2021-01-19</p>
+<p><strong>Contact Us</strong></p>
+<p>If you have any questions or suggestions about my Terms and Conditions, do not hesitate to contact me at <a href="mailto:segunleedev@gmail.com">segunleedev@gmail.com</a>.</p>
+<p>This Terms and Conditions page was generated by <a target="_blank" rel="noopener" href="https://app-privacy-policy-generator.nisrulz.com/">App Privacy Policy Generator</a></p>
 
       
     </div>

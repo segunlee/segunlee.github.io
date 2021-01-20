@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="google-site-verification" content="3YzKuXYzMgiL3f8oBpF692q5Cdj9ZBQOv_VchFpmq-o" />
   
-  <title>Page 9 | Archives | LightComics</title>
+  <title>Page 13 | LightComics</title>
   <meta name="author" content="SEGUN LEE">
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -46,25 +46,115 @@
 </header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
-<h2 class="archive-title">Archives</h2>
+  <article id="post-ubuntu-16-04-vsFTP-Install" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2017-11-21T06:45:50.000Z"><a href="/2017/11/21/ubuntu-16-04-vsFTP-Install/">2017-11-21</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/11/21/ubuntu-16-04-vsFTP-Install/">ubuntu 16.04 vsftp Install</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>해당 글은 ubuntu 16.04 기준으로 작성되었습니다.</p>
+</blockquote>
+<br />
+<h3 id="Package-install">Package install</h3>
+<pre><code>$ apt-get install vsftpd</code></pre>
+<br />
+<h3 id="Account-Setting">Account Setting</h3>
+<pre><code>
+# List of account about home directory path
+$ vi /etc/passwd 
+
+# Add User
+$ adduser &#123;Account&#125; 
+
+# Add User, Set HomeDirectory path
+$ adduser -d &#123;HomeDirectory_Path&#125; &#123;Account&#125; 
+
+# Change HomeDirectory path
+$ usermod -d &#123;HomeDirectory_Path&#125; &#123;Account&#125; 
+
+</code></pre>
+<pre><code>
+# Access not allow users
+$ vi /etc/ftpusers
+
+</code></pre>
+<br />
+<h3 id="Configure">Configure</h3>
+<pre><code>
+$ vi /etc/vsftpd.conf
+
+</code></pre>
+<pre><code>
+# Enable Local User
+local_enable=YES
+
+# Enable Upload
+write_enable=YES
 
 
-  <div class="archive">
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2017-12-29T06:36:06.000Z"><a href="/2017/12/29/swift4-swizzle/">2017-12-29</a></time>
-            
-              <h1 class="title"><a href="/2017/12/29/swift4-swizzle/">swift4 swizzle</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
+# Enable PassiveMode
+pasv_enable=YES
+
+# Min, Max Passive Port
+port_enable=YES
+pasv_min_port=&#123;PORT_BEGIN&#125;	
+pasv_max_port=&#123;PORT_END&#125;
+
+# For Security: Bad IP connecting.
+pasv_promiscuous=YES	
+
+# For vsftpd: refusing to run with writable root inside chroot ()
+allow_writeable_chroot=YES
+
+
+# NOTE: chroot options
+# chroot option1 (Can't access to the top level directory: all user)
+chroot_local_user=YES
+
+# chroot option2 (Can't access to the top level directory: vsftpd_chroot_list)
+chroot_list_enable=YES
+chroot_list_file=/etc/vsftpd_chroot_list
+	
+# chroot option3 (Can access to the top level directory: vsftpd_chroot_list)
+chroot_local_user=YES
+chroot_list_enable=YES
+chroot_list_file=/etc/vsftpd_chroot_list
+
+</code></pre>
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
   </div>
-</div></div>
+</article>
+
+
+
+
+
+<nav id="pagination">
+  
+    <a href="/page/12/" class="alignleft prev">Prev</a>
+  
+  
+  <div class="clearfix"></div>
+</nav></div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
