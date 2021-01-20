@@ -46,109 +46,23 @@
 </header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
-  <article id="post-Frida-Memory-Dump" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <article id="post-Xcode-Replace-Xib" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
   <div class="post-content">
     <header>
       
         <div class="icon"></div>
-        <time class="dt-published" datetime="2020-01-22T07:07:45.000Z"><a href="/2020/01/22/Frida-Memory-Dump/">2020-01-22</a></time>
+        <time class="dt-published" datetime="2020-01-22T06:48:30.000Z"><a href="/2020/01/22/Xcode-Replace-Xib/">2020-01-22</a></time>
       
       
   
-    <h1 class="title"><a href="/2020/01/22/Frida-Memory-Dump/">Frida-Memory-Dump</a></h1>
+    <h1 class="title"><a href="/2020/01/22/Xcode-Replace-Xib/">Xcode-Replace-Xib</a></h1>
   
 
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
-        <h1>준비</h1>
-<ol>
-<li>
-<p>탈옥된 아이폰</p>
-<ol>
-<li>Cydia에서 NewTerm 설치</li>
-<li>Cydia에서 Frida 설치 (Cydia/APT URL: <a target="_blank" rel="noopener" href="http://build.frida.re/">http://build.frida.re/</a>)   *설치 후 자동 실행됨</li>
-</ol>
-</li>
-<li>
-<p>Mac</p>
-<ol>
-<li>
-<p>python3 설치</p>
-<ol>
-<li>
-<pre><code>$ python3 –version
-# python3 설치 : https://www.python.org/downloads/mac-osx/ 에 접속하여 최신 버전 다운로드 및 설치
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2. pip 설치</span><br><span class="line"></span><br><span class="line">   1. &#96;&#96;&#96;</span><br><span class="line">      $ curl https:&#x2F;&#x2F;bootstrap.pypa.io&#x2F;get-pip.py -o get-pip.py</span><br><span class="line">      $ sudo python get-pip.py</span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-</ol>
-</li>
-<li>
-<p>Frida 설치</p>
-<ol>
-<li>
-<pre><code>$ pip install frida
-$ install frida-tools
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># do Dump</span><br><span class="line"></span><br><span class="line">### 디바이스 목록</span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<p>$ frida-ls-devices</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<p>Id                                        Type    Name</p>
-<hr>
-<p>local                                     local   Local System<br>
-afce666ff913e4e8f2b23c909cb44112ee6d8696  usb     iPhone<br>
-tcp                                       remote  Local TCP</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 프로세스 목록 -  frida-server 동작여부 확인</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>$ frida-ps -U | grep ‘frida’</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<p>77  frida-server</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 프로세스 목록 -  대상 애플리케이션 동작여부 확인</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>$ frida-ps -U | grep ‘LightComics’</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<p>1031  LightComics</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 메모리 덤프 처리</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>$ cd ~/Documents/FridaDump/<br>
-$ git clone <a target="_blank" rel="noopener" href="https://github.com/Nightbringer21/fridump.git">https://github.com/Nightbringer21/fridump.git</a><br>
-$ cd fridump<br>
-$ python <a target="_blank" rel="noopener" href="http://fridump.py">fridump.py</a> -U -r --max-size 1048576000 LightComics</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<p>optional arguments:<br>
--h, --help         show this help message and exit<br>
--o dir, --out dir  provide full output directory path. (def: ‘dump’)<br>
--U, --usb          device connected over usb<br>
--v, --verbose      verbose<br>
--r, --read-only    dump read-only parts of memory. More data, more errors<br>
--s, --strings      run strings on all dump files. Saved in output dir.<br>
-–max-size bytes   maximum size of dump file in bytes (def: 20971520</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### *.data 파일 검사</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>cd ~/Documents/FridaDump/fridump/dump/<br>
-grep -q “SEARCH_KEYWORD” *.data; [ $? -eq 0 ] &amp;&amp; echo “OOPS” || echo “GOOD, NOT FOUND”<br>
-grep -l “SEARCH_KEYWORD” *.data; [ $? -eq 0 ] &amp;&amp; echo “OOPS” || echo “GOOD, NOT FOUND”</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># iOS Frida 수동 설치</span><br><span class="line"></span><br><span class="line">Cydia Repo가 정상적이지 않는 경우도 있어 수동 설치 방법을 기입한다.</span><br><span class="line"></span><br><span class="line">1. iPhone 또는 Mac에서 SSH 접속</span><br><span class="line"></span><br><span class="line">2. Firda 다운로드</span><br><span class="line"></span><br><span class="line">   1. &#96;&#96;&#96;</span><br><span class="line">      $ cd &#x2F;var&#x2F;mobile&#x2F;</span><br><span class="line">      $ mkdir frida</span><br><span class="line">      $ cd frida</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>
-<pre><code>$ wget https://github.com/frida/frida/releases/download/12.8.7/frida-core-devkit-12.8.7-ios-arm64.tar.xz
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3. &#96;&#96;&#96;</span><br><span class="line">   $ unxz frida-core-devkit-12.8.7-ios-arm64.tar.xz</span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-<li>
-<pre><code>$ cp frida-core-devkit-12.8.7-ios-arm64.tar frida-server
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">5. &#96;&#96;&#96;</span><br><span class="line">   $ chmod 775 frida-server </span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-<li>
-<pre><code>$ ./frida-server &amp;
-</code></pre>
-</li>
-</ol>
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find . -name &#39;*.xib&#39; -type f -exec sed -i &quot;&quot; &#39;s&#x2F;[[:&lt;:]]&lt;userDefinedRuntimeAttribute type&#x3D;&quot;string&quot; keyPath&#x3D;&quot;themeTextKey&quot; value&#x3D;&quot;LABEL_MAIN_BG&quot;&#x2F;&gt;&#x2F;&#x2F;g&#39; &#123;&#125; \;</span><br><span class="line">find . -name &#39;*.xib&#39; -type f -exec sed -i &quot;&quot; &#39;s&#x2F;[[:&lt;:]]btnHelpBig&#x2F;btn_help_big&#x2F;g&#39; &#123;&#125; \;</span><br><span class="line">find . -name &#39;*.xib&#39; -type f -exec sed -i &quot;&quot; &#39;s,&quot;btnHelpBig&quot;,&quot;btn_help_big&quot;,g&#39; &#123;&#125; \;</span><br></pre></td></tr></table></figure>
 
       
     </div>

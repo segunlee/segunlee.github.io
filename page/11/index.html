@@ -46,253 +46,131 @@
 </header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
-  <article id="post-plist-file-encryption-at-build-time" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <article id="post-Swift-Localization-I18N" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
   <div class="post-content">
     <header>
       
         <div class="icon"></div>
-        <time class="dt-published" datetime="2017-11-24T08:55:39.000Z"><a href="/2017/11/24/plist-file-encryption-at-build-time/">2017-11-24</a></time>
+        <time class="dt-published" datetime="2017-11-23T01:22:47.000Z"><a href="/2017/11/23/Swift-Localization-I18N/">2017-11-23</a></time>
       
       
   
-    <h1 class="title"><a href="/2017/11/24/plist-file-encryption-at-build-time/">plist file encryption at build time</a></h1>
+    <h1 class="title"><a href="/2017/11/23/Swift-Localization-I18N/">Swift Localization I18N</a></h1>
   
 
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
-        <h3 id="What’s-for">What’s for?</h3>
-<p>네트워크 통신이 들어간 애플리케이션을 개발 할 시 서버 Protocol에 대한 정보를 프로젝트 내부에 저정해야 합니다.<br />명료하게 .plist 파일로 정리를 하여 배포를 하게 되면 다른 개발자 또는 사용자가 .ipa을 언패킹하여 간단하게 .plist 파일을 취득할 수 있다면 큰 단점이 있습니다. 따라서 많은 프로젝트들이 .plist로 서버 Protocol을 관리하지 않고 사용하지 않고 상수 선언 또는 다양한 방법으로 사용하고 있습니다.</p>
-<p>소개하고자 하는 방법은 build시에 .plist파일을 암호화 처리하고 코드에서는 해당 .plist를 복호화 처리하여 사용하면 개발시 편리하게 이용할 수 있고 .ipa를 언패킹하여도 파일명은 노출되지만 해당 내용은 암호화가 되어 있기 때문에 확인할 수 없기 때문에 보안에도 유리합니다.</p>
-<p>물론 다른 좋은 방법이 있다면 그 방법을 사용하는게 유리합니다.</p>
+        <blockquote>
+<p>해당글을 참고하여 작성하였습니다.</p>
+<p><a target="_blank" rel="noopener" href="https://medium.com/@trilliwon/ios%EC%97%90%EC%84%9C-localization%ED%95%98%EB%8A%94-gorgeous-%ED%95%9C-%EB%B0%A9%EB%B2%95-f82ac29d2cfe">iOS에서 언어를 localization하는 Gorgeous 한 방법</a></p>
+</blockquote>
 <br />
-### 0. Prepare
-테스트를 위해 메인프로젝트 디렉토리에 HERE을 폴더를 생성하고 APIProtocol.plist 파일을 임시로 추가하였습니다.
+<h3 id="Create-LocalizedString-strings">Create LocalizedString.strings</h3>
+<p>
+지역화를 처리하기 위해 기본적으로 Localizable.strings 파일이 필요합니다.
 <br />
-### 1. MacOS Command Line Tool Target (이하 BuildHeler)
-적용하고자 하는 프로젝트에서 XCode > New > Target 선택 > macOS 항목의 Command Line Tool을 선택하여 생성한다.<br />새로운 타켓이 생성되면 해당 디렉토리의 main.swift가 있는지 확인한다.<br />(현재 글에서는 BuildHeler 로 생성하였습니다.)
+Localizable.strings의 이름을 가진 파일을 프로젝트에 추가 한 후 Project - Info 섹션에서 지원할 언어를 추가합니다.<br />
+신규 언어가 추가 될 떄 Localization할 파일 리스트에서 지역화 되어야 할 파일(Localizable.strings)들을 선택합니다.
+</p>
 <br />
-### 2. 메인 타켓과 BuildHeler 타켓 암호화 툴 설정
-본 글에서는 [RNCryptor](https://github.com/RNCryptor/RNCryptor-objc)를 사용합니다.
-RNCryptor를 메인 타켓에 프로젝트에 직접포함 후 BuildHeler도 사용해야 함으로 Target Membership에 등록해줍니다.
-<br />
-### 3. main.swift
-main.swift는 MacOS Command Line Tool의 기본 구조입니다 추후 Run Script를 통하여 사용됩니다.
-우선 Run Script에서 다음과 같은 값을 받아야 합니다.
-<ol>
-<li>encrypt 실행 명령어 (mode)</li>
-<li>plist 파일이 존재하는 경로</li>
-<li>암호화 처리후 이동할 경로</li>
-</ol>
-<p>코드는 다음과 같습니다.</p>
+<h3 id="Write-LocalizedString-strings">Write LocalizedString.strings</h3>
 <pre><code>
-import Foundation
-import Cocoa
+// 입력 방법
+"KEY"="VALUE";
 
-/// 실행 명령어 Eunm
-enum BHMode &#123;
-​    case unknown
-​    case encrypt
-​    
-​    init(raw: String) &#123;
-​        switch raw.uppercased() &#123;
-​        case "E":
-​            self = .encrypt
-​        default:
-​            self = .unknown
-​        &#125;
-​    &#125;
-​    
-    var description: String &#123;
-        switch self &#123;
-        case .encrypt:
-            return "Encrypt Mode"
-        default:
-            return "Unknown Mode"
-        &#125;
-    &#125;
-&#125;
+// 기존 데이터 형태
+"Confirm"="확인";
 
-/// 명령어 객체
-class BHCommand &#123;
-​    var mode: BHMode
-​    var options = [String]()
-​    
-​    init(_ mode: BHMode, withOptions: [String]) &#123;
-​        self.mode = mode
-​        self.options = withOptions
-​    &#125;
-​    
-    var description: String &#123;
-        return "Mode: \(mode.description), Options: \(options)"
-    &#125;
-&#125;
+// Script를 위한 데이터 삽입 형태 변경 (KEY에 "를 제거)
+Confirm="확인";
 
-
-/// 암호화 처리
-///
-/// - Parameters:
-///   - filePath: 경로
-///   - descFilePath: 대상 경로
-func encryptMode(_ resourcePath: String, _ resourceEncryptPath: String) &#123;
-​    print(">> ENCRYPT START")
-​    print(">> ENCRYPT resourcePath: \(resourcePath)")
-​    print(">> ENCRYPT resourceEncryptPath: \(resourceEncryptPath)")
-​    
-​    // NOTE: CHANGE UR KEY
-​    let key = "SGIOS.GITHUB.IO"
-​    
-    do &#123;
-        let allowTypes = ["plist"]
-        let resources = try FileManager.default.contentsOfDirectory(at: URL(fileURLWithPath: resourcePath), includingPropertiesForKeys: nil, options: [])
-        let allowFilePaths = resources.filter(&#123; (URL) -> Bool in
-            return allowTypes.contains(URL.pathExtension)
-        &#125;)
-    
-        for allowFilePath in allowFilePaths &#123;
-            let path = resourcePath + allowFilePath.lastPathComponent
-            let descPath = resourceEncryptPath + allowFilePath.lastPathComponent
-            let willEncryptData = try Data(contentsOf: URL(fileURLWithPath: path))
-            let encrypted = try RNEncryptor.encryptData(willEncryptData, with: kRNCryptorAES256Settings, password: key)
-            try encrypted.write(to: URL(fileURLWithPath: descPath), options: Data.WritingOptions.atomicWrite)
-            print(">> ENCRYPTED SUCCESS -> [\(allowFilePath.lastPathComponent)]")
-        &#125;
-    
-    &#125; catch let error as NSError &#123;
-        print(">> OOPS! \(error.localizedDescription)")
-        exit(1)
-    &#125;
-&#125;
-
-
-
-
-/*
- Run Script를 통해 넘어온 arguments 정리
- 1. -e              : encrypt 실행 명령어
- 2. 1 Path Stirng   : plist 존재하는 경로
- 3. 2 Path Stirng   : 암호화 처리후 이동할 경로
-
- ex: BuildHelper -e $RESOURCES_PATH $RESOURCES_ENCRYPT_PATH
- */
-
-print(">> START BUILD HELPER")
-var commands = [BHCommand]() &#123;
-​    didSet &#123;
-​        if let command = commands.last &#123;
-​            print(">> New Command: \(command.description)")
-​        &#125;
-​    &#125;
-&#125;
-let arguments: [String] = CommandLine.arguments
-
-for (index, argument) in arguments.enumerated() &#123;
-​    
-​    let modeChar = argument[argument.index(argument.startIndex, offsetBy: 1)...]
-​    let mode = BHMode(raw: String(modeChar))
-​    
-    switch mode &#123;
-    case .encrypt:
-        
-        // NOTE: arguments 확인
-        if arguments.count < index+2 &#123;
-            print("OOPS! -e mode, missing arguments!")
-            exit(1)
-        &#125;
-        
-        var options = [String]()
-        options.append(arguments[index+1])
-        options.append(arguments[index+2])
-        
-        let command = BHCommand(mode, withOptions: options)
-        commands.append(command)
-        
-    default:
-        break
-    &#125;
-&#125;
-
-
-for command in commands &#123;
-​    switch command.mode &#123;
-​    case .encrypt:
-​        encryptMode(command.options[0], command.options[1])
-​    default:
-​        break
-​    &#125;
-&#125;
-
-print(">> END BUILD HELPER")
+// 개인적으로 사용하기 편하게 하는 방법 (Prefix 설정)
+M_CONFIRM="확인";
 
 </code></pre>
-<p>해당 내용 작성 후 BuildHelper 타켓 설정 후 Build(최초 빌드를 하여 Command Line Tool 을 생성한다.)</p>
+<p>포맷에 맞게 입력되지 않으면 Build 시 다음과 같은 오류가 발생합니다.</p>
+<pre><code>read failed: The data couldn’t be read because it isn’t in the correct format.</code></pre>
+<p>정확한 오류를 확인하려면 Terminal을 통해 해당하는 Localizable.Strings 경로로 이동하여 다음과 같이 입력하여 확인합니다.</p>
+<pre><code>
+$ cd .../Base.lproj
+$ plutil -lint Localizable.strings 
+2017-11-23 13:05:55.037 plutil[12752:242882] CFPropertyListCreateFromXMLData(): Old-style plist parser: missing semicolon in dictionary on line 3. Parsing will be abandoned. Break on _CFPropertyListMissingSemicolon to debug.
+Localizable.strings: <strong>Unexpected character M at line 1</strong>
+<p></code></pre></p>
 <br />
-### 4. 메인타켓의 Run Script 추가
-메인타켓 > Build Phases > + > New Run Script Phase
+<h3 id="Helper-String-Extension">Helper String Extension</h3>
 <pre><code>
-# 프로젝트 경로
-PROJECT_PATH="$&#123;BUILD_DIR&#125;/$&#123;CONFIGURATION&#125;"
-
-# 암호화될 대상이 있는 경로
-RESOURCES_PATH="$&#123;PROJECT_DIR&#125;/$&#123;TARGET_NAME&#125;/HERE/"
-
-# 암호화된 후 이동(작성)될 경로
-RESOURCES_ENCRYPT_PATH="$&#123;TARGET_BUILD_DIR&#125;/$&#123;UNLOCALIZED_RESOURCES_FOLDER_PATH&#125;/"
-
-# DO IT
-$PROJECT_PATH/BuildHelper -e $RESOURCES_PATH $RESOURCES_ENCRYPT_PATH
-
-</code></pre>
-<h3 id="5-메인-Target-빌드">5. 메인 Target 빌드</h3>
-<p>빌드 후 Report Navigation에서 가장 최신 Build를 선택하면 추가한 Run Script에 대한 내용을 확인할 수 있습니다.</p>
-<pre><code>
-Run custom shell script 'Run Script - Build Helper'
-\>> START BUILD HELPER
-\>> New Command: Mode: Encrypt Mode, Options: ["/Users/SegunLee/Documents/GIT/SGBuildTimeEncrypt/SGBuildTimeEncryptSample/SGBuildTimeEncryptSample/HERE/", "/Users/SegunLee/Library/Developer/Xcode/DerivedData/SGBuildTimeEncryptSample-avlzvyxzhdmuzwgyfkeglmyuelbo/Build/Products/Debug-iphonesimulator/SGBuildTimeEncryptSample.app/"]
-\>> ENCRYPT START
-\>> ENCRYPT resourcePath: /Users/SegunLee/Documents/GIT/SGBuildTimeEncrypt/SGBuildTimeEncryptSample/SGBuildTimeEncryptSample/HERE/
-\>> ENCRYPT resourceEncryptPath: /Users/SegunLee/Library/Developer/Xcode/DerivedData/SGBuildTimeEncryptSample-avlzvyxzhdmuzwgyfkeglmyuelbo/Build/Products/Debug-iphonesimulator/SGBuildTimeEncryptSample.app/
-\>> ENCRYPTED SUCCESS -> [APIProtocol.plist]
-\>> END BUILD HELPER
-</code></pre>
-<br />
-### 6. plist 사용하기
-<pre><code>
-import UIKit
-<p>class ViewController: UIViewController &#123;</p>
-<pre><code>override func viewDidLoad() &#123;
-    super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
-    
-    if let apiProtocol = loadPlistFile(&quot;APIProtocol&quot;) &#123;
-        print(apiProtocol)
-    &#125;
+// For I18N.swift 
+extension String &#123;
+	var localized: String &#123;
+		return NSLocalizedString(self, comment: "")
+	&#125;
 &#125;
 
-func loadPlistFile(_ fileName: String) -&gt; [String: Any]? &#123;
-    let key = &quot;SGIOS.GITHUB.IO&quot;
-    do &#123;
-        if let url = Bundle.main.path(forResource: fileName, ofType: &quot;plist&quot;) &#123;
-            let encrypted = try Data(contentsOf: URL(fileURLWithPath: url))
-            let decrypted = try RNDecryptor.decryptData(encrypted, withPassword: key)
-            
-            let plist = try PropertyListSerialization.propertyList(from: decrypted, options: [], format:nil) as! [String: Any]
-            print(plist)
-            return plist
-        &#125;
-    
-    &#125; catch let error &#123;
-        print(error)
-    &#125;
-    return nil
-&#125;
 </code></pre>
-<p>}<br>
-</code></pre></p>
 <br />
-### 마치며
-생각보다 복잡한 구조이기 때문에 배보다 배꼽이 더 클 수가 있습니다....
+<h3 id="Create-I18N-swift">Create I18N.swift</h3>
+<p>
+원하는 위치에 I18N.swift 파일을 생성합니다.
+추후 해당 파일은 Run Script에 의해 작성됩니다.
+</p>
+<br />
+<h3 id="Run-Script">Run Script</h3>
+<p>
+TAGETS/Project의 Build Pharses에서 새로운 Run Script를 추가한 후 아래의 내용을 입력합니다.
+</p>
+<blockquote>
+<p>{$SRCROOT} 값은 해당하는 프로젝트의 .xcodeproj이 존재하는 경로</p>
+</blockquote>
+<pre><code>
+touch tempI18N.swift
+echo "struct I18N &#123;" >> tempI18N.swift
+file="$&#123;SRCROOT&#125;/&#123;Example&#125;/Utils/ko.lproj/Localizable.strings" # 위치를 개발하시는 프로젝트의 파일 위치로 고쳐주세요.
+while IFS= read -r line
+do
+variableName=$(echo $&#123;line%%=*&#125;)
+if [ "$variableName" != "" ]
+then
+echo "	static let $variableName = \"$variableName\".localized" >> tempI18N.swift
+fi
+done <"$file"
+
+echo "&#125;" >> tempI18N.swift
+
+cat "tempI18N.swift" > $&#123;SRCROOT&#125;/Example/I18N.swift # 위치를 개발하시는 프로젝트의 파일 위치로 고쳐주세요.
+rm tempI18N.swift
+
+</code></pre>
+<br />
+<h3 id="Use-I18N-swift">Use I18N.swift</h3>
+<p>Project Build를 하면 생성한 I18N.swift에 Localizable.Strings에 작성한 내용이 변환됩니다.</p>
+<pre><code>
+struct I18N &#123;
+	static let M_CONFIRM = "M_CONFIRM".localized
+&#125;
+<p></code></pre></p>
+<p>Project에 적용</p>
+<pre><code>
+// 직접 사용
+let label = UILabel()
+label.text = I18N.M_CONFIRM
+<p>// UILabel Extension에서 IBInspectable을 이용하여 간단하게 사용<br>
+extension UILabel &#123;<br>
+​    @IBInspectable var localizedKey: String &#123;<br>
+​        get &#123;<br>
+​            return text!<br>
+​        &#125;<br>
+​        set &#123;<br>
+​            self.text = newValue.localized<br>
+​        &#125;<br>
+​    &#125;<br>
+&#125;</p>
+<p></code></pre></p>
+<h3 id="Python-버전-2020-01-22">Python 버전 - 2020.01.22</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line">import shutil</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">LocalizableFilePath &#x3D; &quot;.&#x2F;SGComicViewer&#x2F;Resources&#x2F;Strings&#x2F;ko.lproj&#x2F;Localizable.strings&quot;</span><br><span class="line">tempFilePath &#x3D; &quot;.&#x2F;tempI18N.swift&quot;</span><br><span class="line">I18NSwiftFilePath &#x3D; &quot;.&#x2F;SGComicViewer&#x2F;Resources&#x2F;I18N.swift&quot;</span><br><span class="line"></span><br><span class="line">class LocalizeInfo:</span><br><span class="line">    def __init__(self, _key, _value, _desc):</span><br><span class="line">        self._key &#x3D; _key</span><br><span class="line">        self._value &#x3D; _value</span><br><span class="line">        self._desc &#x3D; _desc</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">localizableFile &#x3D; open(LocalizableFilePath, &quot;r&quot;)</span><br><span class="line">localizableStrings &#x3D; localizableFile.read()</span><br><span class="line">localizableStrings &#x3D; localizableStrings.replace(&quot;;&quot;, &quot;&quot;)</span><br><span class="line">localizableStringsLines &#x3D; localizableStrings.splitlines()</span><br><span class="line"></span><br><span class="line">convertedLocalizables &#x3D; []</span><br><span class="line"></span><br><span class="line">for localizableString in localizableStringsLines:</span><br><span class="line">    if localizableString &#x3D;&#x3D; &#39;&#39;:</span><br><span class="line">        continue</span><br><span class="line">    if localizableString.startswith(&quot;#&quot;):</span><br><span class="line">        continue</span><br><span class="line"></span><br><span class="line">    _key &#x3D; localizableString.split(&quot;&#x3D;&quot;)[0].strip().replace(&#39;&quot;&#39;, &quot;&quot;)</span><br><span class="line">    _value &#x3D; localizableString.split(&quot;&#x3D;&quot;)[1].strip().replace(&#39;&quot;&#39;, &quot;&quot;)</span><br><span class="line">    _desc &#x3D; &quot;&#x2F;&#x2F;&#x2F; &quot; + _value</span><br><span class="line"></span><br><span class="line">    if _key &#x3D;&#x3D; &#39;&#39;:</span><br><span class="line">        continue</span><br><span class="line"></span><br><span class="line">    info &#x3D; LocalizeInfo(_key, _value, _desc)</span><br><span class="line">    convertedLocalizables.append(info)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">temp &#x3D; open(tempFilePath, &quot;w&quot;)</span><br><span class="line">temp.write(&quot;struct I18N &#123;\n&quot;)</span><br><span class="line">for convertedLocalizableInfo in convertedLocalizables:</span><br><span class="line">    temp.writelines([&quot;\t&quot;, convertedLocalizableInfo._desc, &quot;\n&quot;])</span><br><span class="line">    line &#x3D; f&#39;\tstatic let &#123;convertedLocalizableInfo._key&#125; &#x3D; &quot;&#123;convertedLocalizableInfo._key&#125;&quot;.localized&#39;</span><br><span class="line">    temp.writelines([line, &quot;\n\n&quot;])</span><br><span class="line">temp.write(&quot;&#125;\n&quot;)</span><br><span class="line"></span><br><span class="line">temp.close()</span><br><span class="line">localizableFile.close()</span><br><span class="line">shutil.move(tempFilePath, I18NSwiftFilePath)</span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer>

@@ -46,62 +46,43 @@
 </header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
-  <article id="post-swift4-swizzle" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <article id="post-XCode-what-the-calibratedRGB" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
   <div class="post-content">
     <header>
       
         <div class="icon"></div>
-        <time class="dt-published" datetime="2017-12-29T06:36:06.000Z"><a href="/2017/12/29/swift4-swizzle/">2017-12-29</a></time>
+        <time class="dt-published" datetime="2017-12-29T06:23:18.000Z"><a href="/2017/12/29/XCode-what-the-calibratedRGB/">2017-12-29</a></time>
       
       
   
-    <h1 class="title"><a href="/2017/12/29/swift4-swizzle/">swift4 swizzle</a></h1>
+    <h1 class="title"><a href="/2017/12/29/XCode-what-the-calibratedRGB/">Xcode, what the calibratedRGB</a></h1>
   
 
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
-        <h3 id="Swift4-swizzle">Swift4 swizzle</h3>
-<p>UIViewController-Swizzle.swift</p>
-<pre><code>
-import UIKit
-<p>private func swizzle(_ vc: UIViewController.Type) &#123;<br>
-​    [ (#selector(vc.viewDidLoad), #selector(vc.sg_viewDidLoad)), ].forEach &#123; original, swizzled in</p>
-<pre><code>    let originalMethod = class_getInstanceMethod(vc, original)
-    let swizzledMethod = class_getInstanceMethod(vc, swizzled)
-
-    let didAddViewDidLoadMethod = class_addMethod(vc, original, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))
-    if didAddViewDidLoadMethod &#123;
-        class_replaceMethod(vc, swizzled, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod))
-    &#125; else &#123;
-        method_exchangeImplementations(originalMethod, swizzledMethod)
-    &#125;
-&#125;
-</code></pre>
-<p>}</p>
-<p>private var hasSwizzled = false<br>
-extension UIViewController {<br>
-​    final public class func doSwizzle() {<br>
-​        guard !hasSwizzled else { return }<br>
-​        hasSwizzled = true<br>
-​        swizzle(self)<br>
-​    }</p>
-<pre><code>internal func sg_viewDidLoad() &#123;
-    print(&quot;swizzled -&gt; viewDidLoad:&quot;)
-    self.sg_viewDidLoad()
-&#125;
-</code></pre>
-<p>}</p>
-<p></code></pre></p>
+        <blockquote>
+<p>해당글을 참고하여 작성하였습니다.</p>
+<p><a target="_blank" rel="noopener" href="https://code.iamseapy.com/archives/58">iOS 삽질 : 인터페이스 빌더에서 설정한 색상이 제대로 표시 안됨</a></p>
+</blockquote>
 <br />
-<p>AppDelegate.swift</p>
+### Why do colors look different?
+<p>
+Just follow this
+</p>
+<br />
+<h3 id="1-Run-Script">1.Run Script</h3>
+<p>Add new Run Script</p>
 <pre><code>
-func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool &#123;
-	// doSwizzle
-	UIViewController.doSwizzle()
-&#125;
+grep -rl 'colorSpace="calibratedRGB"' ./* | xargs sed -i '' 's/colorSpace="calibratedRGB"/colorSpace="custom" customColorSpace="sRGB"/g'
+
 </code></pre>
+<br />
+<h3 id="2-Build">2. Build</h3>
+<p>Done</p>
+<br />
+
       
     </div>
     <footer>
