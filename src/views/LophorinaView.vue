@@ -6,19 +6,18 @@ import lophorinaKo from '../assets/images/lophorina-ko-1.png'
 <template>
   <section class="hero">
     <div class="fade-in">
-      <span class="badge">macOS 전용</span>
+      <span class="badge">macOS only</span>
       <h1 class="hero-title">Lophorina</h1>
       <p class="hero-lead">
-        Apple 개발자를 위한 macOS 유틸리티 모음입니다. Base64/URL 인코딩, JSON 포맷과 Swift 모델 생성, AES 암복호화, APNs 페이로드 작성, 프로비저닝 프로파일 확인, launchd 헬퍼 관리, Xcode 캐시 정리, 앱 아이콘 생성을 제공합니다.
+        A macOS utility suite for Apple developers. It provides Base64/URL encoding, JSON formatting and Swift model generation, AES encryption, APNs payload creation, provisioning profile inspection, launchd helper management, Xcode cache cleanup, and app icon generation.
       </p>
       <div class="hero-actions">
-        <a class="button primary" href="https://github.com/segunlee/Lophorina/releases" target="_blank" rel="noopener">다운로드</a>
-        <a class="button secondary" href="https://github.com/segunlee/Lophorina" target="_blank" rel="noopener">GitHub</a>
+        <a class="button primary" href="https://github.com/segunlee/Lophorina/releases" target="_blank" rel="noopener">Download</a>
       </div>
     </div>
     <div class="hero-card fade-in">
-      <h3>모든 작업을 로컬에서</h3>
-      <p>Lophorina는 사용자 데이터를 외부로 전송하지 않고, 대부분의 처리를 로컬에서 수행하도록 설계되었습니다.</p>
+      <h3>Local-first by design</h3>
+      <p>Lophorina keeps your data local and avoids sending user data to external services.</p>
     </div>
   </section>
 
@@ -38,16 +37,16 @@ import lophorinaKo from '../assets/images/lophorina-ko-1.png'
         <ul class="feature-list">
           <li>AES Encrypt/Decrypt</li>
           <li>JSON Format / JSON to Swift</li>
-          <li>Swift 모델 생성</li>
+          <li>Swift model generation</li>
         </ul>
       </article>
       <article class="card">
         <h3>Apple Utilities</h3>
         <ul class="feature-list">
-          <li>APNs Payload 제작</li>
-          <li>Provisioning Profile 뷰어</li>
-          <li>LaunchDaemon/Agent 관리</li>
-          <li>App Icon 생성</li>
+          <li>APNs payload builder</li>
+          <li>Provisioning profile viewer</li>
+          <li>LaunchDaemon and Agent management</li>
+          <li>App icon generator</li>
         </ul>
       </article>
     </div>
@@ -63,15 +62,14 @@ import lophorinaKo from '../assets/images/lophorina-ko-1.png'
 
   <section class="section">
     <h2 class="section-title">Support</h2>
-    <p class="section-lead">문의와 이슈는 GitHub에서 관리합니다.</p>
+    <p class="section-lead">For support or feedback, email the team.</p>
     <div class="hero-actions">
-      <a class="button primary" href="https://github.com/segunlee/Lophorina/issues" target="_blank" rel="noopener">Issue 등록</a>
-      <a class="button secondary" href="mailto:segunleedev@gmail.com">메일 문의</a>
+      <a class="button primary" href="mailto:segunleedev@gmail.com">Email support</a>
     </div>
   </section>
 
   <footer class="footer">
-    <div>© 2026 Lophorina. All rights reserved.</div>
+    <div>© 2026 LEE SEGUN. All rights reserved.</div>
     <div><RouterLink to="/">Back to Home</RouterLink></div>
   </footer>
 </template>

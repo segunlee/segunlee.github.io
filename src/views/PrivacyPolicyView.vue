@@ -54,7 +54,7 @@
   </section>
 
   <footer class="footer">
-    <div>© 2026 LightComics. All rights reserved.</div>
+    <div>© 2026 LEE SEGUN. All rights reserved.</div>
     <div><RouterLink to="/terms-conditions">Terms & Conditions</RouterLink></div>
   </footer>
 </template>

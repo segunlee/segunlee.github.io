@@ -29,7 +29,7 @@
   </section>
 
   <footer class="footer">
-    <div>© 2026 LightComics. All rights reserved.</div>
+    <div>© 2026 LEE SEGUN. All rights reserved.</div>
     <div><RouterLink to="/privacy-policy">Privacy Policy</RouterLink></div>
   </footer>
 </template>

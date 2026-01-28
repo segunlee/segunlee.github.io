@@ -3,7 +3,7 @@
   <div class="page">
     <header class="nav">
       <div class="logo">
-        <RouterLink to="/">SGIOS</RouterLink>
+        <RouterLink to="/">SGIOS Dev</RouterLink>
       </div>
       <nav class="nav-links" aria-label="Primary">
         <RouterLink to="/lightcomics" class="tab">LightComics</RouterLink>
