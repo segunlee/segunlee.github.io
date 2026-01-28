@@ -12,7 +12,7 @@ import lophorinaKo from '../assets/images/lophorina-ko-1.png'
         A macOS utility suite for Apple developers. It provides Base64/URL encoding, JSON formatting and Swift model generation, AES encryption, APNs payload creation, provisioning profile inspection, launchd helper management, Xcode cache cleanup, and app icon generation.
       </p>
       <div class="hero-actions">
-        <a class="button primary" href="https://github.com/segunlee/Lophorina/releases" target="_blank" rel="noopener">Download</a>
+        <a class="button primary" href="https://github.com/segunlee/segunlee.github.io/releases/download/1.0.0/Lophorina.dmg" target="_blank" rel="noopener">Download</a>
       </div>
     </div>
     <div class="hero-card fade-in">

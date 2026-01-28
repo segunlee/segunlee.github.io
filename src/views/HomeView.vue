@@ -63,7 +63,7 @@ const lightComicsIcon =
         </ul>
         <div class="hero-actions">
           <RouterLink class="button primary" to="/lophorina">Lophorina Overview</RouterLink>
-          <a class="button secondary" href="https://github.com/segunlee/Lophorina/releases" target="_blank" rel="noopener">Download</a>
+          <a class="button secondary" href="https://github.com/segunlee/segunlee.github.io/releases/download/1.0.0/Lophorina.dmg" target="_blank" rel="noopener">Download</a>
         </div>
       </article>
     </div>
